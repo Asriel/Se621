@@ -5,7 +5,7 @@ edition = "2018"
 authors = ["Asriel <Asriel@dismail.de>"]
 description = "A multithreaded e621/e926 downloader"
 readme = "README.md"
-license = "Apache-2.0"
+license = "BSD-3-Clause"
 keywords = ["furry", "scraper"]
 repository = "https://github.com/Asriel/Se621"
 
