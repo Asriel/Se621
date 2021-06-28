@@ -1,7 +1,13 @@
 [package]
 name = "se621"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2018"
+authors = ["Asriel <Asriel@dismail.de>"]
+description = "A multithreaded e621/e926 downloader"
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["furry", "scraper"]
+repository = "https://github.com/Asriel/Se621"
 
 [dependencies]
 tokio = { version = "1.6.0", features = ["full"] }
@@ -10,7 +16,6 @@ serde = { version = "1.0.126", features = ["derive"] }
 serde_json = "1.0.64"
 url = "2.2.2"
 urlencoding = "1.3.3"
-indicatif = "0.16.1"
 futures = "0.3.15"
 crossbeam-channel = "0.5.1"
 crossbeam = "0.8.0"
