@@ -16,7 +16,7 @@ use std::collections::VecDeque;
 extern crate clap;
 use clap::{App, Arg};
 
-pub const APP_USER_AGENT: &str = "Se621/0.5.0";
+pub const APP_USER_AGENT: &str = "Se621/0.5.1";
 pub const MAX_CHAN_COUNT_TRY: usize = 20;
 pub const BANNER: &str = "   _____ ______   ________  ___\n  / ___// ____/  / ___/__ \\<  /\n  \\__ \\/ __/    / __ \\__/ // / \n ___/ / /___   / /_/ / __// /  \n/____/_____/   \\____/____/_/   \n";
 
@@ -99,6 +99,8 @@ async fn main() {
 
     let fresh_tags =
         file::read_tags(matches.value_of("tag-file")).expect("[-] Failed to parse tag file");
+
+    file::check_pop(&fresh_tags);
 
     // Start scraping posts
     println!("[=] Scraping Posts");

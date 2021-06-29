@@ -92,3 +92,11 @@ pub fn check_file_path(tag_file: Option<&str>) -> path::PathBuf {
 
     tag_filepath
 }
+
+/// Function to check wheather any tags where retrived from the tags file if not tell the user to add some
+pub fn check_pop(tags: &TagStore) {
+    if tags.general.is_empty() && tags.pools.is_empty() && tags.single_posts.is_empty() {
+        println!("[-] Please add at least one tag to the tag file");
+        std::process::exit(1);
+    }
+}

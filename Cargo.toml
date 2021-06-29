@@ -1,6 +1,6 @@
 [package]
 name = "se621"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2018"
 authors = ["Asriel <Asriel@dismail.de>"]
 description = "A multithreaded e621/e926 downloader"

@@ -37,10 +37,32 @@ impl Downloader {
     pub fn download(&self, tag_dir: &str, config: &unit::Config) {
         crossbeam::thread::scope(|thread_scope| {
             let mut handles = Vec::new();
-            println!("[+] Downloading {} files for: {}", self.len, tag_dir);
+
+            // Setup the directory to download into
+            let mut cur_dir = std::path::PathBuf::new();
+
+            if let Some(down_dir) = &config.directory {
+                cur_dir.push(down_dir);
+            } else {
+                cur_dir = env::current_dir().unwrap();
+            }
+
+            if config.sfw {
+                cur_dir.push("sfw-downloads")
+            } else {
+                cur_dir.push("downloads");
+            }
+
+            if self.len > 1 {
+                cur_dir.push(&tag_dir);
+            }
+
+            println!("[+] Downloading / Updating: {}", tag_dir);
 
             // Setup number of specifed threads for downloaading
             for x in 0..self.jobs {
+                let cur_dir = cur_dir.clone();
+
                 if config.verbose {
                     println!("[!] Thread {} Spawned", x);
                 }
@@ -49,25 +71,6 @@ impl Downloader {
                 let mut chan_counter = 0;
                 let mut retry_counter = 0;
                 let cl_chan = self.channel_rx.clone();
-
-                // Setup the directory to download into
-                let mut cur_dir = std::path::PathBuf::new();
-
-                if let Some(down_dir) = &config.directory {
-                    cur_dir.push(down_dir);
-                } else {
-                    cur_dir = env::current_dir().unwrap();
-                }
-
-                if config.sfw {
-                    cur_dir.push("sfw-downloads")
-                } else {
-                    cur_dir.push("downloads");
-                }
-
-                if self.len > 1 {
-                    cur_dir.push(&tag_dir);
-                }
 
                 fs::create_dir_all(&cur_dir).expect("[-] Failed to create tag directory");
 
